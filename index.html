@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+<h1>TESTE SITE DE COTAÇÕES DO DATAIMESC</h1>
+<h3>cotações em tempo real</h3>
+  <table id="currencyTable">
+    <tr>
+      <th>Código</th>
+      <th>Código Inter</th>
+      <th>Nome</th>
+      <th>Maior</th>
+      <th>Menor</th>
+      <th>Variação</th>
+      <th>Variação Percentual</th>
+      <th>Bid</th>
+      <th>Ask</th>
+      <th>Timestamp</th>
+      <th>Data de Criação</th>
+    </tr>
+  </table>
+
+  <script>
+    fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL')
+  .then(response => response.json())
+  .then(data => {
+    // Manipule os dados JSON aqui
+    var json = data;
+ var table = document.getElementById("currencyTable");
+
+    for (var key in json) {
+      if (json.hasOwnProperty(key)) {
+        var row = table.insertRow();
+
+        var codeCell = row.insertCell(0);
+        codeCell.innerHTML = json[key].code;
+
+        var codeinCell = row.insertCell(1);
+        codeinCell.innerHTML = json[key].codein;
+
+        var nameCell = row.insertCell(2);
+        nameCell.innerHTML = json[key].name;
+
+        var highCell = row.insertCell(3);
+        highCell.innerHTML = json[key].high;
+
+        var lowCell = row.insertCell(4);
+        lowCell.innerHTML = json[key].low;
+
+        var varBidCell = row.insertCell(5);
+        varBidCell.innerHTML = json[key].varBid;
+
+        var pctChangeCell = row.insertCell(6);
+        pctChangeCell.innerHTML = json[key].pctChange;
+
+        var bidCell = row.insertCell(7);
+        bidCell.innerHTML = json[key].bid;
+
+        var askCell = row.insertCell(8);
+        askCell.innerHTML = json[key].ask;
+
+        var timestampCell = row.insertCell(9);
+        timestampCell.innerHTML = json[key].timestamp;
+
+        var createDateCell = row.insertCell(10);
+        createDateCell.innerHTML = json[key].create_date;
+  }
+}})
+  </script>
+</body>
+</html>
